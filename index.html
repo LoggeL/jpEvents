@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/paper.min.css">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col sm-10 form-group">
+            <label for="url">Calendar URL</label>
+            <input id="url"
+                value="https://cloud.arthurdoler.com/remote.php/dav/public-calendars/230G65ZAI9PV9KAT?export"
+                class="input-block">
+        </div>
+        <div class="col sm-2">
+            <label for="loadBtn">Load Calendar</label>
+            <button id="loadBtn" class="btn-block" onclick="calendar()">Load</button>
+        </div>
+    </div>
+    <div class="">
+        <p>Dump</p>
+        <table id="table">
+        </table>
+    </div>
+    <script src="js/ical.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
