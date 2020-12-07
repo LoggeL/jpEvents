@@ -4,23 +4,41 @@ function calendar() {
     const thead = document.getElementById('theadtr')
     const calendarURL = document.getElementById('url').value
     fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => response.text().then(icsString => {
-        jcalData = ICAL.parse(icsString)
-        console.log(jcalData)
-        const events = jcalData[2]
 
-        const firstEvent = jcalData[2][0][1]
-        console.log(firstEvent)
-        for (let i = 0; i < firstEvent.length; i++) {
+        console.log(icsString)
+
+        let events = []
+        let collector = {}
+        let start = false
+        const lines = icsString.split("\n");
+        for (i = 0; i < lines.length; i++) {
+            const line = lines[i]
+            if (line.startsWith('BEGIN:VEVENT')) {
+                if (Object.keys(collector).length > 0) events.push(collector)
+                collector = {}
+                start = true
+            }
+            else if (!start) continue
+            else {
+                let split = line.split(':')
+                const property = split.shift().replace(';VALUE=DATE', '')
+                collector[property] = split.join(':').trim().replace('\\,', ',')
+            }
+        }
+
+        const keys = Object.keys(events[0])
+        for (let i = 0; i < keys.length; i++) {
             const th = document.createElement('th')
-            th.innerText = firstEvent[i][0]
+            th.innerText = keys[i]
             thead.append(th)
         }
 
         for (let i = 0; i < events.length; i++) {
             const tr = document.createElement('tr')
-            for (let l = 0; l < events[i][1].length; l++) {
+            const values = Object.values(events[i])
+            for (let l = 0; l < values.length; l++) {
                 const td = document.createElement('td')
-                td.innerText = events[i][1][l][3]
+                td.innerText = values[l]
                 tr.append(td)
             }
             tbody.append(tr)
