@@ -9,23 +9,15 @@
 </head>
 
 <body>
-    <div class="row">
-        <div class="col sm-10 form-group">
-            <label for="url">Calendar URL</label>
-            <input id="url"
-                value="https://cloud.arthurdoler.com/remote.php/dav/public-calendars/230G65ZAI9PV9KAT?export"
-                class="input-block">
-        </div>
-        <div class="col sm-2">
-            <label for="loadBtn">Load Calendar</label>
-            <button id="loadBtn" class="btn-block" onclick="calendar()">Load</button>
-        </div>
-    </div>
-    <div class="">
-        <p>Dump</p>
+    <div class="container">
         <table id="table">
+            <thead>
+                <tr id="theadtr"></tr>
+            </thead>
         </table>
     </div>
+    <script src="js/day.min.js"></script>
+    <script src="js/relativeTime.js"></script>
     <script src="js/main.js"></script>
 </body>
 
