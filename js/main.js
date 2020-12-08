@@ -77,3 +77,12 @@ fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => resp
     }
     template.remove()
 }))
+
+function setTheme(first) {
+    if (!first) dark = (dark == "true" ? "false" : "true")
+    localStorage.setItem('dark', dark)
+    document.body.classList.toggle('dark')
+}
+
+let dark = localStorage.getItem('dark')
+if (dark == "true") setTheme(true)
