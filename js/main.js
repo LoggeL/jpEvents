@@ -57,7 +57,6 @@ fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => resp
     for (let i = 0; i < events.length; i++) {
         const event = events[i]
         let children = template.children[0].children
-        console.log(event.LOCATION)
         children[0].innerText = event.SUMMARY + ' ' + (event.LOCATION ? event.LOCATION : '')
         children[2].innerText = event.DTSTART + ' bis ' + event.DTEND
         if (event.URL) {
@@ -69,12 +68,10 @@ fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => resp
         }
         if (event.END_TIMESTAMP < Date.now()) {
             children[1].innerText = dayjs(event.END_TIMESTAMP).fromNow()
-            console.log('passed')
             passedDates.append(template.cloneNode(true))
         }
         else {
             children[1].innerText = event.RELATIVE
-            console.log('upcoming')
             upcomingDates.append(template.cloneNode(true))
         }
     }
