@@ -2,21 +2,16 @@ dayjs.extend(dayjs_plugin_relativeTime)
 
 const calendarURL = 'https://cloud.jupeters.de/remote.php/dav/public-calendars/rgNpg4W5S92DytyZ?export'
 
-const tbody = document.createElement('tbody')
-const thead = document.getElementById('theadtr')
+const upcomingDates = document.getElementById('upcomingDates')
+const passedDates = document.getElementById('passedDates')
 
-const validKeys = ['RELATIVE', 'DTSTART', 'DTEND', 'SUMMARY', 'DESCRIPTION']
-const translateKeys = {
-    'RELATIVE': 'Wann',
-    'DTSTART': 'Begin',
-    'DTEND': 'Ende',
-    'SUMMARY': 'Event',
-    'DESCRIPTION': 'Infos'
-}
+const template = document.getElementById('template')
+let events = []
 
 fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => response.text().then(icsString => {
 
-    let events = []
+    template.style.display = 'block'
+
     let collector = {}
     let start = false
     const lines = icsString.split("\n");
@@ -33,8 +28,18 @@ fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => resp
             const property = split.shift().split(';')[0]
             let value = split.join(':').trim().replace('\\,', ',')
             if (property === "DTSTART") {
-                console.log(value, dayjs(value).fromNow())
                 collector['RELATIVE'] = dayjs(value).fromNow()
+                collector['START_TIMESTAMP'] = dayjs(value).valueOf()
+            }
+            else if (property === "DTEND") {
+                collector['END_TIMESTAMP'] = dayjs(value).valueOf()
+            }
+            else if (property === "DESCRIPTION") {
+                try {
+                    collector['URL'] = new URL(value)
+                } catch (e) {
+                    console.error(e)
+                }
             }
             if (property === "DTSTART" || property === "DTEND") {
                 const date = dayjs(value)
@@ -45,21 +50,33 @@ fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => resp
         }
     }
 
-    for (let i = 0; i < validKeys.length; i++) {
-        const th = document.createElement('th')
-        th.innerText = translateKeys[validKeys[i]]
-        thead.append(th)
-    }
-    console.log(events)
+    events = events.sort((a, b) => a.START_TIMESTAMP - b.START_TIMESTAMP)
+    if (events.filter(e => e.END_TIMESTAMP < Date.now()).length === 0) passedDates.previousElementSibling.remove()
+    if (events.filter(e => e.START_TIMESTAMP > Date.now()).length === 0) upcomingDates.previousElementSibling.remove()
 
     for (let i = 0; i < events.length; i++) {
-        const tr = document.createElement('tr')
-        for (let l = 0; l < validKeys.length; l++) {
-            const td = document.createElement('td')
-            td.innerText = events[i][validKeys[l]] || ''
-            tr.append(td)
+        const event = events[i]
+        let children = template.children[0].children
+        console.log(event.LOCATION)
+        children[0].innerText = event.SUMMARY + ' ' + (event.LOCATION ? event.LOCATION : '')
+        children[2].innerText = event.DTSTART + ' bis ' + event.DTEND
+        if (event.URL) {
+            children[3].setAttribute('href', event.URL)
+            children[3].style.display = 'block'
         }
-        tbody.append(tr)
+        else {
+            children[3].style.display = 'none'
+        }
+        if (event.END_TIMESTAMP < Date.now()) {
+            children[1].innerText = dayjs(event.END_TIMESTAMP).fromNow()
+            console.log('passed')
+            passedDates.append(template.cloneNode(true))
+        }
+        else {
+            children[1].innerText = event.RELATIVE
+            console.log('upcoming')
+            upcomingDates.append(template.cloneNode(true))
+        }
     }
-    document.getElementById('table').append(tbody)
+    template.remove()
 }))

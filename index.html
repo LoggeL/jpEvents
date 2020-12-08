@@ -35,13 +35,26 @@
         </div>
     </nav>
 
-    <div class="container margin-top row flex-center">
-        <img class="no-border margin" src="assets/JP.svg" alt="JP Logo">
-        <table id="table" class="margin table-hover">
-            <thead>
-                <tr id="theadtr"></tr>
-            </thead>
-        </table>
+    <div class="container margin-bottom row flex-center">
+        <img class="no-border margin col-6" src="assets/JP.svg" alt="JP Logo">
+        <h3 class="col-12 margin-bottom">Anstehende Events</h3>
+        <div id="upcomingDates" class="col-12">
+
+        </div>
+
+        <h3 class="col-12 margin-bottom">Vergangene Events</h3>
+        <div id="passedDates" class="col-12">
+
+        </div>
+    </div>
+
+    <div id="template" class="card margin-top" style="display: none;">
+        <div class="card-body">
+            <h4 class="card-title">Titel</h4>
+            <h5 class="card-subtitle">In X Tagen</h5>
+            <p class="card-text">XX.XX.XXXX bis XX.XX.XXXX</p>
+            <a href="#" target='_blank' class="paper-btn">Mehr Infos</a>
+        </div>
     </div>
     <script src="js/day.min.js"></script>
     <script src="js/relativeTime.js"></script>
