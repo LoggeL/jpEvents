@@ -28,11 +28,18 @@ fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => resp
             const property = split.shift().split(';')[0]
             let value = split.join(':').trim().replace('\\,', ',')
             if (property === "DTSTART") {
-                collector['RELATIVE'] = dayjs(value).fromNow()
-                collector['START_TIMESTAMP'] = dayjs(value).valueOf()
+                const date = dayjs(value)
+                collector['RELATIVE'] = date.fromNow()
+                collector['START_TIMESTAMP'] = date.valueOf()
+                if (date.hour() == "0" && date.minute() == "0") value = date.format('DD/MM/YYYY')
+                else value = date.format('DD/MM/YYYY HH:mm')
             }
             else if (property === "DTEND") {
-                collector['END_TIMESTAMP'] = dayjs(value).valueOf()
+                const date = dayjs(value)
+                collector['END_TIMESTAMP'] = date.valueOf()
+                if (date.hour() == "0" && date.minute() == "0") value = date.format('DD/MM/YYYY')
+                else if (date.isSame(collector['START_TIMESTAMP'], 'day')) value = date.format('HH:mm')
+                else value = date.format('DD/MM/YYYY HH:mm')
             }
             else if (property === "DESCRIPTION") {
                 try {
@@ -40,11 +47,6 @@ fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => resp
                 } catch (e) {
                     console.error(e)
                 }
-            }
-            if (property === "DTSTART" || property === "DTEND") {
-                const date = dayjs(value)
-                if (date.hour() == "0" && date.minute() == "0") value = date.format('DD/MM/YYYY')
-                else value = date.format('DD/MM/YYYY HH:mm')
             }
             collector[property] = value
         }
