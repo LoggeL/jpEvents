@@ -44,3 +44,7 @@ body.dark {
 .dark .night {
     display: none;
 }
+
+.modal {
+    z-index: 9999 !important;
+}
