@@ -68,7 +68,7 @@ fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => resp
         }
         if (event.END_TIMESTAMP < Date.now()) {
             children[1].innerText = dayjs(event.END_TIMESTAMP).fromNow()
-            passedDates.append(template.cloneNode(true))
+            passedDates.prepend(template.cloneNode(true))
         }
         else {
             children[1].innerText = event.RELATIVE
