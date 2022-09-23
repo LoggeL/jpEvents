@@ -1,110 +1,147 @@
 <!DOCTYPE html>
 <html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JP Events</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/paper.min.css">
-</head>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/paper.min.css" />
+  </head>
 
-<body>
+  <body>
     <div class="content">
-        <nav class="split-nav">
-            <div class="nav-brand">
-                <h3><a href="#">JP Events</a></h3>
+      <nav class="split-nav">
+        <div class="nav-brand">
+          <h3><a href="#">JP Events</a></h3>
+        </div>
+        <div class="collapsible">
+          <input id="collapsible1" type="checkbox" name="collapsible1" />
+          <label for="collapsible1">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </label>
+          <div class="collapsible-body">
+            <ul class="inline">
+              <li>
+                <label for="subCalendar">Importieren</label>
+              </li>
+              <li><a href="https://jupeters.de">Hauptseite</a></li>
+              <li>
+                <a href="https://jupeters.de/impressum.html">Impressum</a>
+              </li>
+              <li>
+                <a href="#" id="themeButton" onclick="setTheme()"
+                  ><span class="night">🌚</span><span class="day">🌝</span></a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <main class="padding">
+        <div class="container margin-bottom row flex-center">
+          <noscript>
+            <div class="card-body alert alert-danger">
+              <h4 class="card-title">Fehler</h4>
+              <h5 class="card-subtitle">Kein Javascript</h5>
+              <p class="card-text">
+                Diese Webseite funktioniert nur mit Javascript.
+              </p>
             </div>
-            <div class="collapsible">
-                <input id="collapsible1" type="checkbox" name="collapsible1">
-                <label for="collapsible1">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                    <div class="bar3"></div>
-                </label>
-                <div class="collapsible-body">
-                    <ul class="inline">
-                        <li>
-                            <label for="subCalendar">Importieren</label>
-                        </li>
-                        <li><a href="https://jupeters.de">Hauptseite</a></li>
-                        <li><a href="https://jupeters.de/impressum.html">Impressum</a></li>
-                        <li><a href="#" id="themeButton" onclick=setTheme()><span class="night">🌚</span><span
-                                    class="day">🌝</span></a></li>
-                    </ul>
+          </noscript>
 
-                </div>
+          <img
+            class="no-border margin col-6"
+            src="assets/JP.svg"
+            alt="JP Logo"
+          />
+          <h3 class="col-12 margin-bottom">Anstehende Events</h3>
+          <div id="upcomingDates" class="col-12">
+            <div class="card margin-top" style="">
+              <div class="card-body">
+                <h4 class="card-title">Lade Termine...</h4>
+                <h5 class="card-subtitle">Bitte warten</h5>
+                <p class="card-text">⏲️</p>
+              </div>
             </div>
-        </nav>
-        <main class="padding">
-            <div class="container margin-bottom row flex-center">
-                <noscript>
-                    <div class="card-body alert alert-danger">
-                        <h4 class="card-title">Fehler</h4>
-                        <h5 class="card-subtitle">Kein Javascript</h5>
-                        <p class="card-text">Diese Webseite funktioniert nur mit Javascript.</p>
-                    </div>
-                </noscript>
+          </div>
 
-                <img class="no-border margin col-6" src="assets/JP.svg" alt="JP Logo">
-                <h3 class="col-12 margin-bottom">Anstehende Events</h3>
-                <div id="upcomingDates" class="col-12">
-
-                </div>
-
-                <h3 class="col-12 margin-bottom">Vergangene Events</h3>
-                <div id="passedDates" class="col-12">
-
-                </div>
+          <h3 class="col-12 margin-bottom">Vergangene Events</h3>
+          <div id="passedDates" class="col-12">
+            <div class="card margin-top" style="">
+              <div class="card-body">
+                <h4 class="card-title">Lade Termine...</h4>
+                <h5 class="card-subtitle">Bitte warten</h5>
+                <p class="card-text">⏲️</p>
+              </div>
             </div>
+          </div>
+        </div>
 
-            <div id="template" class="card margin-top" style="display: none;">
-                <div class="card-body">
-                    <h4 class="card-title">Titel</h4>
-                    <h5 class="card-subtitle">In X Tagen</h5>
-                    <p class="card-text">XX.XX.XXXX bis XX.XX.XXXX</p>
-                    <a href="#" target='_blank' class="paper-btn shadow-none">Mehr Infos</a>
-                </div>
+        <div id="template" class="card margin-top" style="display: none">
+          <div class="card-body">
+            <h4 class="card-title">Titel</h4>
+            <h5 class="card-subtitle">In X Tagen</h5>
+            <p class="card-text">XX.XX.XXXX bis XX.XX.XXXX</p>
+            <a href="#" target="_blank" class="paper-btn shadow-none"
+              >Mehr Infos</a
+            >
+          </div>
+        </div>
+        <input class="modal-state" id="subCalendar" type="checkbox" />
+        <div class="modal">
+          <label class="modal-bg" for="subCalendar"></label>
+          <div class="modal-body">
+            <label class="btn-close" for="subCalendar">X</label>
+            <h4 class="modal-title">Kalendar importieren</h4>
+            <p class="modal-text">
+              Hier könnt ihr euch den aktuellen Kalendar herunterladen oder den
+              Link abonnieren.
+            </p>
+            <div class="row">
+              <div class="col-12 padding row">
+                <label for="calendarLink">Kalendar URL</label>
+                <input
+                  class="input-block col-12"
+                  id="calendarLink"
+                  value="https://cloud.jupeters.de/remote.php/dav/public-calendars/rgNpg4W5S92DytyZ?export"
+                />
+              </div>
+              <div class="col-6 padding">
+                <button
+                  class="btn-block"
+                  href="https://cloud.jupeters.de/remote.php/dav/public-calendars/rgNpg4W5S92DytyZ?export"
+                  target="_blank"
+                >
+                  Herunterladen
+                </button>
+              </div>
+              <div class="col-6 padding">
+                <button
+                  class="btn-block"
+                  href="#"
+                  onclick="document.getElementById('calendarLink').select();document.getElementById('calendarLink').setSelectionRange(0, 99999);document.execCommand('copy');"
+                >
+                  Link kopieren
+                </button>
+              </div>
             </div>
-            <input class="modal-state" id="subCalendar" type="checkbox">
-            <div class="modal">
-                <label class="modal-bg" for="subCalendar"></label>
-                <div class="modal-body">
-                    <label class="btn-close" for="subCalendar">X</label>
-                    <h4 class="modal-title">Kalendar importieren</h4>
-                    <p class="modal-text">Hier könnt ihr euch den aktuellen Kalendar herunterladen oder den Link
-                        abonnieren.</p>
-                    <div class="row">
-                        <div class="col-12 padding row">
-                            <label for="calendarLink">Kalendar URL</label>
-                            <input class="input-block col-12" id="calendarLink"
-                                value="https://cloud.jupeters.de/remote.php/dav/public-calendars/rgNpg4W5S92DytyZ?export">
-                        </div>
-                        <div class="col-6 padding">
-                            <button class="btn-block"
-                                href="https://cloud.jupeters.de/remote.php/dav/public-calendars/rgNpg4W5S92DytyZ?export"
-                                target="_blank">Herunterladen</button>
-                        </div>
-                        <div class="col-6 padding">
-                            <button class="btn-block" href="#"
-                                onclick="document.getElementById('calendarLink').select();document.getElementById('calendarLink').setSelectionRange(0, 99999);document.execCommand('copy');">Link
-                                kopieren</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+          </div>
+        </div>
+      </main>
     </div>
 
-    <footer class="footer border-1 row flex-middle background-primary margin-none">
-        <div class="margin-left">
-            &copy; 2020 <a href="https://jupeters.de" target="_blank">JP</a> & <a href="https://lmf.logge.top"
-                target='_blank'>LMF</a>
-        </div>
+    <footer
+      class="footer border-1 row flex-middle background-primary margin-none"
+    >
+      <div class="margin-left">
+        &copy; 2020 <a href="https://jupeters.de" target="_blank">JP</a> &
+        <a href="https://lmf.logge.top" target="_blank">LMF</a>
+      </div>
     </footer>
     <script src="js/day.min.js"></script>
     <script src="js/relativeTime.js"></script>
     <script src="js/main.js"></script>
-</body>
-
+  </body>
 </html>

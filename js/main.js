@@ -1,6 +1,6 @@
 dayjs.extend(dayjs_plugin_relativeTime)
 
-const calendarURL = 'https://cloud.jupeters.de/remote.php/dav/public-calendars/rgNpg4W5S92DytyZ?export'
+const calendarURL = 'https://nextcloud.jupeters.de/remote.php/dav/public-calendars/2MTfKNgsWXQZ7MDN?export'
 
 const upcomingDates = document.getElementById('upcomingDates')
 const passedDates = document.getElementById('passedDates')
@@ -11,6 +11,9 @@ let events = []
 fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => response.text().then(icsString => {
 
     template.style.display = 'block'
+
+    upcomingDates.innerHTML = ''
+    passedDates.innerHTML = ''
 
     let collector = {}
     let start = false
