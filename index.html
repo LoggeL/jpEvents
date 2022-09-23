@@ -127,21 +127,49 @@
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-      </main>
+            <input class="modal-state" id="subCalendar" type="checkbox">
+            <div class="modal">
+                <label class="modal-bg" for="subCalendar"></label>
+                <div class="modal-body">
+                    <label class="btn-close" for="subCalendar">X</label>
+                    <h4 class="modal-title">Kalendar importieren</h4>
+                    <p class="modal-text">Hier könnt ihr euch den aktuellen Kalendar herunterladen oder den Link
+                        abonnieren.</p>
+                    <div class="row">
+                        <div class="col-12 padding row">
+                            <label for="calendarLink">Kalendar URL</label>
+                            <input class="input-block col-12" id="calendarLink"
+                                value="http://nextcloud.jupeters.de/remote.php/dav/public-calendars/2MTfKNgsWXQZ7MDN?export">
+                        </div>
+                        <div class="col-6 padding">
+                            <button class="btn-block"
+                                href="http://nextcloud.jupeters.de/remote.php/dav/public-calendars/2MTfKNgsWXQZ7MDN?export"
+                                target="_blank">Herunterladen</button>
+                        </div>
+                        <div class="col-6 padding">
+                            <button class="btn-block" href="#"
+                                onclick="document.getElementById('calendarLink').select();document.getElementById('calendarLink').setSelectionRange(0, 99999);document.execCommand('copy');">Link
+                                kopieren</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <footer
-      class="footer border-1 row flex-middle background-primary margin-none"
-    >
-      <div class="margin-left">
-        &copy; 2020 <a href="https://jupeters.de" target="_blank">JP</a> &
-        <a href="https://lmf.logge.top" target="_blank">LMF</a>
-      </div>
+    <footer class="footer border-1 row flex-middle background-primary margin-none">
+        <div class="margin-left">
+            &copy; 2021 <a href="https://jupeters.de" target="_blank">JP</a> & <a href="https://lmf.logge.top"
+                target='_blank'>LMF</a>
+        </div>
     </footer>
     <script src="js/day.min.js"></script>
     <script src="js/relativeTime.js"></script>
     <script src="js/main.js"></script>
+<<<<<<< HEAD
   </body>
+=======
+</body>
+
+>>>>>>> b0178b62beb87c7abd23826928dbe1c012152a44
 </html>

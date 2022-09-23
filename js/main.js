@@ -61,6 +61,7 @@ fetch('https://calendar.logge.workers.dev/' + calendarURL).then(response => resp
 
     for (let i = 0; i < events.length; i++) {
         const event = events[i]
+        if (dayjs(event.DTEND).isBefore(dayjs().subtract(1, 'year'))) continue
         let children = template.children[0].children
         children[0].innerText = event.SUMMARY + ' ' + (event.LOCATION ? event.LOCATION : '')
         children[2].innerText = event.DTSTART + ' bis ' + event.DTEND
