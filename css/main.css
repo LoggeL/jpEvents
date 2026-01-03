@@ -111,6 +111,12 @@ main {
     width: 120px;
     height: auto;
     filter: drop-shadow(0 4px 12px rgba(100, 221, 23, 0.3));
+    transition: filter 0.3s ease;
+}
+
+/* Invert logo in dark mode so black text becomes white */
+body.dark .logo-container img {
+    filter: drop-shadow(0 4px 12px rgba(100, 221, 23, 0.5)) invert(1);
 }
 
 /* Section Headers */
