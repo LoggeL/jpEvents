@@ -7,7 +7,7 @@ dayjs.extend(dayjs_plugin_relativeTime)
 // ============================================================
 // Configuration
 // ============================================================
-const CALENDAR_URL = 'https://nextcloud.jupeters.de/remote.php/dav/public-calendars/2MTfKNgsWXQZ7MDN?export'
+const CALENDAR_URL = 'https://cloud.jupeters.de/remote.php/dav/public-calendars/mfHHdogR5poajqD9?export'
 const CORS_PROXY = 'https://calendar.logge.workers.dev/'
 const MAX_PAST_EVENTS_AGE_YEARS = 1
 
